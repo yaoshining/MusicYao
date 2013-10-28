@@ -27,6 +27,12 @@
             <version>6.0</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.yao</groupId>
+            <artifactId>MusicYao-ejb</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -48,6 +54,15 @@
                     <configuration>
                         <url>http://localhost:8080/manager/text</url>
                         <server>tomee+</server>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.openejb.maven</groupId>
+                    <artifactId>tomee-maven-plugin</artifactId>
+                    <configuration>
+                        <tomeeVersion>1.5.2</tomeeVersion>
+                        <tomeeClassifier>plus</tomeeClassifier>
+                        <path>${project.build.directory}/${project.build.finalName}.war</path>
                     </configuration>
                 </plugin>
             </plugins>
