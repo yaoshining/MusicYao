@@ -2,10 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-    <artifactId>MusicYao</artifactId>
-    <groupId>com.yao</groupId>
-    <version>1.0-SNAPSHOT</version>
-  </parent>
+        <artifactId>MusicYao</artifactId>
+        <groupId>com.yao</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
 
     <groupId>com.yao</groupId>
     <artifactId>MusicYao-web</artifactId>
@@ -30,6 +30,28 @@
     </dependencies>
 
     <build>
+        <directory>target</directory>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.tomcat.maven</groupId>
+                    <artifactId>tomcat6-maven-plugin</artifactId>
+                    <version>2.1</version>
+                    <configuration>
+                        <server>tomee+</server>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.tomcat.maven</groupId>
+                    <artifactId>tomcat7-maven-plugin</artifactId>
+                    <version>2.1</version>
+                    <configuration>
+                        <url>http://localhost:8080/manager/text</url>
+                        <server>tomee+</server>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -78,5 +100,33 @@
             </plugin>
         </plugins>
     </build>
-
+    <repositories>
+        <repository>
+            <id>people.apache.snapshots</id>
+            <url>
+                    http://repository.apache.org/content/groups/snapshots-group/
+            </url>
+            <releases>
+                    <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                    <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>apache.snapshots</id>
+            <name>Apache Snapshots</name>
+            <url>
+                    http://repository.apache.org/content/groups/snapshots-group/
+            </url>
+            <releases>
+                    <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                    <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 </project>
