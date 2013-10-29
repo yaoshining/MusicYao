@@ -5,4 +5,7 @@
     <debug>true</debug>
   </jsp-descriptor>
   <context-root>/MusicYao-web</context-root>
+  <container-descriptor>
+      <prefer-web-inf-classes>true</prefer-web-inf-classes>
+  </container-descriptor>
 </weblogic-web-app>

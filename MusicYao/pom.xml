@@ -16,7 +16,7 @@
   <name>MusicYao</name>
     <ciManagement>
         <system>hudson</system>
-        <url>http://115.28.3.226:8080/hudson-3.1.0/job/MusicYao/</url>
+        <url>http://115.28.3.226:7001/hudson-3.1.0/job/MusicYao/</url>
     </ciManagement>
     <modules>
         <module>MusicYao-ear</module>

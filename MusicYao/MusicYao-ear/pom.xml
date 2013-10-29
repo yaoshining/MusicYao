@@ -48,6 +48,23 @@
             <path>${project.build.directory}/${project.build.finalName}.ear</path>
         </configuration>
       </plugin>
+      <plugin>
+          <groupId>com.oracle.weblogic</groupId>
+          <artifactId>weblogic-maven-plugin</artifactId>
+          <version>12.1.2.0</version>
+          <configuration>
+              <adminurl>t3://localhost:7001</adminurl>
+              <user>weblogic</user>
+              <password>ys198756</password>
+              <upload>true</upload>
+              <action>deploy</action>
+              <remote>false</remote>
+              <verbose>true</verbose>
+              <source>${project.build.directory}/${project.build.finalName}.${project.packaging}</source>
+              <targets>AdminServer</targets>
+              <name>${project.build.finalName}</name>
+          </configuration>
+      </plugin>
     </plugins>
   </build>
     <dependencies>
