@@ -16,7 +16,7 @@
   <name>MusicYao</name>
     <ciManagement>
         <system>hudson</system>
-        <url>http://ysnlvlqw.gicp.net:47788/hudson-3.1.0/job/MusicYao/</url>
+        <url>http://ysnlvlqw.gicp.net/jenkins/job/MusicYao/</url>
     </ciManagement>
     <modules>
         <module>MusicYao-ear</module>
