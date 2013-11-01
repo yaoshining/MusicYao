@@ -4,12 +4,17 @@
  */
 package com.yao;
 
+import javax.ejb.Stateless;
+
 /**
  *
  * @author 世宁
  */
+@Stateless
 public class NewClass {
-    public static void main(String[] args) {
-        System.out.println("asdads");
+    
+    public void test(){
+        
     }
+    
 }
