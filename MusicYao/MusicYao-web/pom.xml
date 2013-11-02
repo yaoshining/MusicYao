@@ -57,6 +57,12 @@
             <artifactId>hibernate-entitymanager</artifactId>
             <version>4.2.6.Final</version>
         </dependency>
+        <dependency>
+            <groupId>org.junit4</groupId>
+            <artifactId>org.junit4</artifactId>
+            <version>4.3.1</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
