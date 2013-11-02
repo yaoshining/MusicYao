@@ -10,13 +10,21 @@
           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
->
+">
     <context:annotation-config />
     <context:component-scan base-package="com.yao.music">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
     </context:component-scan>
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" 
+            p:driverClassName="org.apache.derby.jdbc.ClientDriver"
+            p:url="jdbc:derby://192.168.1.109:1527/musicyao;create=true"
+            p:username="yao" 
+            p:password="ys198756" 
+            p:maxActive="100" 
+            p:maxIdle="8" 
+            p:minIdle="1" />
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" 
-        p:jtaDataSource="music-datasource"
+        p:dataSource-ref="dataSource"
         p:jpaDialect-ref="jpaDialect"
         p:persistenceUnitName="MusicYaoPU"
         p:persistenceProvider-ref="jpaProvider"
@@ -31,6 +39,7 @@
         <prop key="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</prop>
         <prop key="hibernate.hbm2ddl.auto">update</prop>
     </util:properties>
-    <tx:annotation-driven />
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager" p:entityManagerFactory-ref="entityManagerFactory" />
+    <tx:annotation-driven mode="aspectj" transaction-manager="transactionManager" />
     
 </beans>
