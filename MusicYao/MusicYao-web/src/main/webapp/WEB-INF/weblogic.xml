@@ -4,8 +4,8 @@
     <keepgenerated>true</keepgenerated>
     <debug>true</debug>
   </jsp-descriptor>
-  <context-root>/MusicYao</context-root>
   <container-descriptor>
-      <prefer-web-inf-classes>true</prefer-web-inf-classes>
+    <prefer-web-inf-classes>true</prefer-web-inf-classes>
   </container-descriptor>
+  <context-root>/MusicYao-web</context-root>
 </weblogic-web-app>
