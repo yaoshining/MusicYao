@@ -1,2 +1,5 @@
 Manifest-Version: 1.0
-
+Extension-List: WeblogicSpring
+WeblogicSpring-Extension-Name: weblogic-spring
+WeblogicSpring-Specification-Version: 10.3.0.0
+WeblogicSpring-Implementation-Version: 10.3.0.0
