@@ -9,21 +9,37 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
-          http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
-">
+          http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
     <context:annotation-config />
     <context:component-scan base-package="com.yao.music">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
     </context:component-scan>
-    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" 
-        p:jtaDataSource="music-datasource"
+    <bean id="jpa-jtaDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName">
+            <value>music-datasource</value>
+        </property>
+        <property name="resourceRef">
+            <value>false</value>
+        </property>
+        <property name="jndiEnvironment">
+            <props>
+                <prop key="java.naming.provider.url">t3://localhost:7001</prop>
+                <prop key="java.naming.factory.initial">weblogic.jndi.WLInitialContextFactory</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+        p:jtaDataSource-ref="jpa-jtaDataSource"
+        p:persistenceXmlLocation="classpath:META-INF/orm.xml"
+        p:packagesToScan-ref="packageToScan"
         p:jpaDialect-ref="jpaDialect"
         p:persistenceUnitName="MusicYaoPU"
         p:persistenceProvider-ref="jpaProvider"
         p:jpaVendorAdapter-ref="jpaVenderAdapter"
         p:loadTimeWeaver-ref="loadTimeWeaver" 
         p:jpaProperties-ref="jpaProperties" />
-    <bean id="jpaVenderAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+    <bean id="jpaVenderAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" 
+        p:database="DERBY" p:generateDdl="true" p:showSql="true" p:databasePlatform="org.hibernate.dialect.DerbyTenSevenDialect" />
     <bean id="jpaProvider" class="org.hibernate.ejb.HibernatePersistence"></bean>
     <bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
     <bean id="loadTimeWeaver" class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver"></bean>
@@ -31,6 +47,9 @@
         <prop key="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</prop>
         <prop key="hibernate.hbm2ddl.auto">update</prop>
     </util:properties>
+    <util:list id="packageToScan">
+        <value>com.yao.music.po</value>
+    </util:list>
     <tx:annotation-driven />
     <tx:jta-transaction-manager />
 </beans>
