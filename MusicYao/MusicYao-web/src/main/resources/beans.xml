@@ -29,7 +29,7 @@
         </property>
     </bean>
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
-        p:jtaDataSource-ref="jpa-jtaDataSource"
+        p:jtaDataSource-ref="jpa-jtaDataSource" 
         p:persistenceXmlLocation="classpath:META-INF/orm.xml"
         p:packagesToScan-ref="packageToScan"
         p:jpaDialect-ref="jpaDialect"
