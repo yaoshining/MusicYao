@@ -31,7 +31,7 @@
         p:persistenceProvider-ref="jpaProvider"
         p:jpaVendorAdapter-ref="jpaVenderAdapter"
         p:loadTimeWeaver-ref="loadTimeWeaver"
-        p:packagesToScan="com.yao.music.test.po" 
+        p:packagesToScan="com.yao.music.po"
         p:jpaProperties-ref="jpaProperties" />
     <bean id="jpaVenderAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" p:database="DERBY" p:generateDdl="true" p:databasePlatform="org.hibernate.dialect.DerbyTenSevenDialect" p:showSql="true" />
     <bean id="jpaProvider" class="org.hibernate.ejb.HibernatePersistence"></bean>

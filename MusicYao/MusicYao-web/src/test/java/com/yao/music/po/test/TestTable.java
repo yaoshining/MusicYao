@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.yao.music.test.po;
+package com.yao.music.po.test;
 
 import java.io.Serializable;
 import javax.persistence.Entity;

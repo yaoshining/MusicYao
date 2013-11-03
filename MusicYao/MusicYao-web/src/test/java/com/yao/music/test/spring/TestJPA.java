@@ -4,7 +4,7 @@
  */
 package com.yao.music.test.spring;
 
-import com.yao.music.test.po.TestTable;
+import com.yao.music.po.test.TestTable;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.junit.After;
