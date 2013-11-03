@@ -10,7 +10,7 @@
           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
->
+">
     <context:annotation-config />
     <context:component-scan base-package="com.yao.music">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
@@ -32,5 +32,5 @@
         <prop key="hibernate.hbm2ddl.auto">update</prop>
     </util:properties>
     <tx:annotation-driven />
-    
+    <tx:jta-transaction-manager />
 </beans>
