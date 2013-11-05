@@ -25,6 +25,7 @@
                 <prop key="index.html">indexController</prop>
                 <prop key="manager/login.html">loginController</prop>
                 <prop key="manager/upload.html">uploadController</prop>
+                <prop key="manager/index.html">managerIndexController</prop>
             </props>
         </property>
     </bean>
@@ -33,7 +34,7 @@
           class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:prefix="/WEB-INF/jsp/"
           p:suffix=".jsp" />
-
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" p:maxUploadSize="102400000" />
     <!--
     The index controller.
     -->

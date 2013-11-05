@@ -9,4 +9,7 @@
     <bean name="uploadController"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           p:viewName="manager/upload" />
+    <bean name="managerIndexController"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          p:viewName="manager/index" />
 </beans>
