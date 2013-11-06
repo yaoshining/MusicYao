@@ -6,6 +6,11 @@ Ext.require([
 Ext.define('BM.view.catalog.Language',{
     extend: 'Ext.grid.Panel',
     alias: 'widget.languagegrid',
+    requires: [
+        'Ext.grid.plugin.CellEditing',
+        'Ext.form.field.Text',
+        'Ext.toolbar.TextItem'
+    ],
 //    dockedItems: [{
 //        dock: 'top',
 //        xtype: 'toolbar',
@@ -22,14 +27,65 @@ Ext.define('BM.view.catalog.Language',{
 //            style: 'margin-right:5px'
 //        }]
 //    }],
+    initComponent: function() {
+        this.editing = Ext.create('Ext.grid.plugin.CellEditing');
+        
+        Ext.apply(this,{
+            iconCls: 'icon-grid',
+            frame: true,
+            plugins: [this.editing],
+            dockedItems: [{
+                xtype: 'toolbar',
+                items: [{
+                    iconCls: 'icon-add',
+                    text: 'Add',
+                    scope: this,
+                    handler: this.onAddClick
+                },{
+                    iconCls: 'icon-delete',
+                    text: 'Delete',
+                    disabled: true,
+                    itemId: 'delete',
+                    scope: this,
+                    handler: this.onDeleteClick
+                }]
+            }]
+        });
+        this.callParent();
+        this.getSelectionModel().on('selectionchange', this.onSelectChange, this);
+    },
+    onSelectChange: function(selModel, selections){
+        this.down('#delete').setDisabled(selections.length === 0);
+    },
+    onDeleteClick: function(){
+        var selection = this.getView().getSelectionModel().getSelection()[0];
+        if (selection) {
+//            this.store.remove(selection);
+        }
+    },
+    onAddClick: function(){
+        var rec = new Writer.Language({
+            name: '',
+            createuser: '',
+            createtime: '',
+            modifytime:''
+        }), edit = this.editing;
+
+        edit.cancelEdit();
+//        this.store.insert(0, rec);
+        edit.startEditByPosition({
+            row: 0,
+            column: 1
+        });
+    },
     columns: [{
         xtype: 'rownumberer',
         width: 50,
         sortable: false
     },{
         tdCls: 'x-grid-cell-topic',
-        text: "语言种类",
-        dataIndex: 'title',
+        header: "语言种类",
+        dataIndex: 'name',
         flex: 1,
         renderer: "<a>asdasdasasd</a>",
         sortable: false
@@ -53,5 +109,25 @@ Ext.define('BM.view.catalog.Language',{
         sortable: false
     }]
 });
-
+Ext.define('Writer.Language',{
+    extend: 'Ext.data.Model',
+    fields: [{
+        name: 'id',
+        type: 'int',
+        useNull: true
+    }, 'name', 'createuser', 'createtime','modifytime'],
+    validations: [{
+        type: 'length',
+        field: 'email',
+        min: 1
+    }, {
+        type: 'length',
+        field: 'first',
+        min: 1
+    }, {
+        type: 'length',
+        field: 'last',
+        min: 1
+    }]
+});
 

@@ -4,15 +4,22 @@
     Author     : 世宁
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <base href="<%=request.getContextPath()+"/"%>" />
+<!--[if IE]>
+<script type="text/javascript">
+    var basetag = document.getElementsByTagName("base")[0];
+    basetag.href = 'http://'+window.location.host+basetag.href;
+</script>
+<![endif]-->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Music Yao后台管理系统</title>
 <link rel="stylesheet" href="resources/css/extjs/ext-all-neptune.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="resources/css/extjs/ux/GroupTabPanel.css" />
+<base href="<%=request.getContextPath()+"/"%>" />
+<link rel="stylesheet" type="text/css" href="resources/css/extjs/ux/GroupTabPanel.css" media="screen" />
 <style type="text/css">
 <!--
     #loading-mask {
@@ -50,7 +57,7 @@
 </style>
 </head>
 <body>
-<div id="loading-mask" style=""></div>
+<div id="loading-mask"></div>
 <div id="loading">
     <div class="loading-indicator">
         <img src="resources/images/manager/loading.gif" width="32" height="32" style="margin-right:8px;float:left;vertical-align:top;"/>
