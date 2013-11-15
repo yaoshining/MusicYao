@@ -5,6 +5,7 @@
 --%>
 
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,6 +21,10 @@
 <link rel="stylesheet" href="resources/css/extjs/ext-all-neptune.css" media="screen" />
 <base href="<%=request.getContextPath()+"/"%>" />
 <link rel="stylesheet" type="text/css" href="resources/css/extjs/ux/GroupTabPanel.css" media="screen" />
+<script type="text/javascript">
+    var UserContext = new Object();
+    UserContext.username = '<sec:authentication property="name" />';
+</script>
 <style type="text/css">
 <!--
     #loading-mask {

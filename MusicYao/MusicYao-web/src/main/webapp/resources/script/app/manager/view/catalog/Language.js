@@ -1,8 +1,75 @@
 Ext.Loader.setConfig({enabled: true});
 Ext.Loader.setPath('Ext.ux', 'resources/script/extjs/src/ux/');
 Ext.require([
-    'Ext.ux.form.SearchField'
+    'Ext.ux.form.SearchField',
+    'Ext.window.MessageBox',
+    'Ext.data.*'
 ]);
+Ext.define('Writer.Language',{
+    extend: 'Ext.data.Model',
+    fields: [{
+        name: 'id',
+        type: 'int',
+        useNull: true
+    }, 'name', 'createuser', 'createtime','modifytime'],
+    validations: [{
+        type: 'length',
+        field: 'email',
+        min: 1
+    }, {
+        type: 'length',
+        field: 'first',
+        min: 1
+    }, {
+        type: 'length',
+        field: 'last',
+        min: 1
+    }]
+});
+var store = Ext.create('Ext.data.Store', {
+    model: 'Writer.Language',
+    data:[
+        {
+            id: 1,
+            name: 'name',
+            createuser: 'createuser',
+            createtime: '1987-05-06',
+            modifytime: '1988-09-09'
+        }
+    ],
+    autoLoad: true,
+    autoSync: true,
+    proxy: {
+        type: 'rest',
+        url: 'manager/languages',
+        reader: {
+            type: 'json',
+            successProperty: 'success',
+            root: 'data',
+            messageProperty: 'message'
+        },
+        writer: {
+            type: 'json',
+            writeAllFields: false,
+            root: 'data'
+        },
+        listeners: {
+            exception: function(proxy, response, operation){
+                Ext.MessageBox.show({
+                    title: 'REMOTE EXCEPTION',
+                    msg: operation.getError(),
+                    icon: Ext.MessageBox.ERROR,
+                    buttons: Ext.MessageBox.OK
+                });
+            }
+        }
+    },
+    listeners: {
+        write: function(proxy, operation){
+            Ext.example.msg(operation.action, operation.resultSet.message);
+        }
+    }
+});
 Ext.define('BM.view.catalog.Language',{
     extend: 'Ext.grid.Panel',
     alias: 'widget.languagegrid',
@@ -28,31 +95,87 @@ Ext.define('BM.view.catalog.Language',{
 //        }]
 //    }],
     initComponent: function() {
-        this.editing = Ext.create('Ext.grid.plugin.CellEditing');
+        this.editing = Ext.create('Ext.grid.plugin.CellEditing',{
+            clicksToEdit: 1
+        });
         
         Ext.apply(this,{
             iconCls: 'icon-grid',
             frame: true,
             plugins: [this.editing],
+            store: store,
             dockedItems: [{
                 xtype: 'toolbar',
                 items: [{
                     iconCls: 'icon-add',
-                    text: 'Add',
+                    text: '添加',
                     scope: this,
                     handler: this.onAddClick
                 },{
                     iconCls: 'icon-delete',
-                    text: 'Delete',
+                    text: '删除',
                     disabled: true,
                     itemId: 'delete',
                     scope: this,
                     handler: this.onDeleteClick
                 }]
+            },{
+                weight: 1,
+                xtype: 'toolbar',
+                dock: 'bottom',
+                ui: 'footer',
+                items: ['->', {
+                    iconCls: 'icon-save',
+                    text: '同步',
+                    scope: this,
+                    handler: this.onSync
+                }]
+            }],
+            columns: [{
+                xtype: 'rownumberer',
+                width: 50,
+                align: 'center',
+                header: '序号',
+                resizable: false,
+                menuDisabled: true
+            },{
+                tdCls: 'x-grid-cell-topic',
+                header: "语言种类",
+                dataIndex: 'name',
+                flex: 1,
+                renderer: "<a>asdasdasasd</a>",
+                field: {
+                    type: 'textfield'
+                },
+                sortable: true
+            },{
+                text: "创建者",
+                dataIndex: 'createuser',
+                align: 'center',
+                width: 100,
+                sortable: false
+            },{
+                text: "创建时间",
+                dataIndex: 'createtime',
+                align: 'center',
+                width: 230,
+                renderer: Ext.util.Format.dateRenderer('Y-m-d H:i'),
+                sortable: false
+            },{
+                id: 'last',
+                text: "最后修改时间",
+                dataIndex: 'modifytime',
+                align: 'center',
+                width: 230,
+                renderer: Ext.util.Format.dateRenderer('Y-m-d H:i'),
+                sortable: false
             }]
         });
         this.callParent();
         this.getSelectionModel().on('selectionchange', this.onSelectChange, this);
+    },
+    onSync: function(){
+        this.store.sync();
     },
     onSelectChange: function(selModel, selections){
         this.down('#delete').setDisabled(selections.length === 0);
@@ -60,74 +183,24 @@ Ext.define('BM.view.catalog.Language',{
     onDeleteClick: function(){
         var selection = this.getView().getSelectionModel().getSelection()[0];
         if (selection) {
-//            this.store.remove(selection);
+            this.store.remove(selection);
+            this.view.refresh();
         }
     },
     onAddClick: function(){
         var rec = new Writer.Language({
             name: '',
-            createuser: '',
-            createtime: '',
-            modifytime:''
+            createuser: UserContext.username,
+            createtime: new Date(),
+            modifytime: new Date()
         }), edit = this.editing;
 
         edit.cancelEdit();
-//        this.store.insert(0, rec);
+        this.store.insert(0, rec);
+        this.view.refresh();
         edit.startEditByPosition({
             row: 0,
             column: 1
         });
-    },
-    columns: [{
-        xtype: 'rownumberer',
-        width: 50,
-        sortable: false
-    },{
-        tdCls: 'x-grid-cell-topic',
-        header: "语言种类",
-        dataIndex: 'name',
-        flex: 1,
-        renderer: "<a>asdasdasasd</a>",
-        sortable: false
-    },{
-        text: "创建者",
-        dataIndex: 'createuser',
-        width: 100,
-        sortable: false
-    },{
-        text: "创建时间",
-        dataIndex: 'createtime',
-        align: 'center',
-        width: 70,
-        sortable: false
-    },{
-        id: 'last',
-        text: "最后修改时间",
-        dataIndex: 'modifytime',
-        width: 130,
-        renderer: Ext.util.Format.dateRenderer('n/j/Y g:i A'),
-        sortable: false
-    }]
+    }
 });
-Ext.define('Writer.Language',{
-    extend: 'Ext.data.Model',
-    fields: [{
-        name: 'id',
-        type: 'int',
-        useNull: true
-    }, 'name', 'createuser', 'createtime','modifytime'],
-    validations: [{
-        type: 'length',
-        field: 'email',
-        min: 1
-    }, {
-        type: 'length',
-        field: 'first',
-        min: 1
-    }, {
-        type: 'length',
-        field: 'last',
-        min: 1
-    }]
-});
-
