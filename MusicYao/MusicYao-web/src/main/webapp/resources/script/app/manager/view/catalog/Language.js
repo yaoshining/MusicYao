@@ -3,73 +3,9 @@ Ext.Loader.setPath('Ext.ux', 'resources/script/extjs/src/ux/');
 Ext.require([
     'Ext.ux.form.SearchField',
     'Ext.window.MessageBox',
-    'Ext.data.*'
+    'Ext.data.*',
+    'Ext.grid.column.RowNumberer'
 ]);
-Ext.define('Writer.Language',{
-    extend: 'Ext.data.Model',
-    fields: [{
-        name: 'id',
-        type: 'int',
-        useNull: true
-    }, 'name', 'createuser', 'createtime','modifytime'],
-    validations: [{
-        type: 'length',
-        field: 'email',
-        min: 1
-    }, {
-        type: 'length',
-        field: 'first',
-        min: 1
-    }, {
-        type: 'length',
-        field: 'last',
-        min: 1
-    }]
-});
-var store = Ext.create('Ext.data.Store', {
-    model: 'Writer.Language',
-    data:[
-        {
-            id: 1,
-            name: 'name',
-            createuser: 'createuser',
-            createtime: '1987-05-06',
-            modifytime: '1988-09-09'
-        }
-    ],
-    autoLoad: true,
-    autoSync: true,
-    proxy: {
-        type: 'rest',
-        url: 'manager/languages',
-        reader: {
-            type: 'json',
-            successProperty: 'success',
-            root: 'data',
-            messageProperty: 'message'
-        },
-        writer: {
-            type: 'json',
-            writeAllFields: false,
-            root: 'data'
-        },
-        listeners: {
-            exception: function(proxy, response, operation){
-                Ext.MessageBox.show({
-                    title: 'REMOTE EXCEPTION',
-                    msg: operation.getError(),
-                    icon: Ext.MessageBox.ERROR,
-                    buttons: Ext.MessageBox.OK
-                });
-            }
-        }
-    },
-    listeners: {
-        write: function(proxy, operation){
-            Ext.example.msg(operation.action, operation.resultSet.message);
-        }
-    }
-});
 Ext.define('BM.view.catalog.Language',{
     extend: 'Ext.grid.Panel',
     alias: 'widget.languagegrid',
@@ -98,12 +34,30 @@ Ext.define('BM.view.catalog.Language',{
         this.editing = Ext.create('Ext.grid.plugin.CellEditing',{
             clicksToEdit: 1
         });
-        
+        Ext.override(Ext.grid.column.RowNumberer, {
+
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                var rowspan = this.rowspan;
+                if (rowspan){
+                    metaData.tdAttr = 'rowspan="' + rowspan + '"';
+                }
+
+                metaData.tdCls = Ext.baseCSSPrefix + 'grid-cell-special';
+
+                console.log(store.indexOfTotal(record));
+                console.log(store.getTotalCount());
+                console.log(store.data.items.length);
+                console.log(record);
+                console.log('**');
+
+                return store.indexOfTotal(record) + 1;
+            }
+        });
         Ext.apply(this,{
             iconCls: 'icon-grid',
             frame: true,
             plugins: [this.editing],
-            store: store,
+            store: 'catalog.Languages',
             dockedItems: [{
                 xtype: 'toolbar',
                 items: [{
@@ -150,13 +104,13 @@ Ext.define('BM.view.catalog.Language',{
                 sortable: true
             },{
                 text: "创建者",
-                dataIndex: 'createuser',
+                dataIndex: 'createUser',
                 align: 'center',
                 width: 100,
                 sortable: false
             },{
                 text: "创建时间",
-                dataIndex: 'createtime',
+                dataIndex: 'createTime',
                 align: 'center',
                 width: 230,
                 renderer: Ext.util.Format.dateRenderer('Y-m-d H:i'),
@@ -164,7 +118,7 @@ Ext.define('BM.view.catalog.Language',{
             },{
                 id: 'last',
                 text: "最后修改时间",
-                dataIndex: 'modifytime',
+                dataIndex: 'modifyTime',
                 align: 'center',
                 width: 230,
                 renderer: Ext.util.Format.dateRenderer('Y-m-d H:i'),
@@ -188,16 +142,16 @@ Ext.define('BM.view.catalog.Language',{
         }
     },
     onAddClick: function(){
-        var rec = new Writer.Language({
+        var rec = new BM.model.Language({
             name: '',
-            createuser: UserContext.username,
-            createtime: new Date(),
-            modifytime: new Date()
+            createUser: UserContext.username,
+            createTime: new Date(),
+            modifyTime: new Date()
         }), edit = this.editing;
 
         edit.cancelEdit();
         this.store.insert(0, rec);
-        this.view.refresh();
+        this.getView().refresh(false);
         edit.startEditByPosition({
             row: 0,
             column: 1

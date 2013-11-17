@@ -5,8 +5,14 @@
 package com.yao.music.po;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -15,9 +21,14 @@ import javax.persistence.Id;
 @Entity
 public class Music implements Serializable{
     @Id
+    @GeneratedValue
     private int id;
     private String title;
-    private String artist;
+    private String filePath;
+    @JsonIgnore
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.EAGER,optional = true)
+    @JoinColumn(name = "languageId")
+    private Language language;
 
     public int getId() {
         return id;
@@ -35,13 +46,20 @@ public class Music implements Serializable{
         this.title = title;
     }
 
-    public String getArtist() {
-        return artist;
+    public Language getLanguage() {
+        return language;
     }
 
-    public void setArtist(String artist) {
-        this.artist = artist;
+    public void setLanguage(Language language) {
+        this.language = language;
     }
-    
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
     
 }

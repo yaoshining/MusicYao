@@ -4,7 +4,7 @@ Ext.application({
     ],
     name: "BM",
     appFolder: 'resources/script/app/manager',
-    controllers: ['Layout','Catalog'],
+    controllers: ['Layout','Catalog','Music'],
     launch: function() {
         gauge.modify(document.getElementById("init-progress"),{values:[0.6,1]});
         document.getElementById('loading-msg').innerHTML = '初始化...';

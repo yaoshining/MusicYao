@@ -176,3 +176,19 @@
 .x-grouptabbar .x-grid-tree-node-expanded .x-grouptab .x-tree-expander {
     background: transparent url('../../../images/extjs/ux/elbow-minus-nl.gif') no-repeat;
 }
+/* styles for iconCls */
+.x-icon-tickets {
+    background-image: url('../../../images/extjs/icons/tickets.png');
+}
+.x-icon-subscriptions {
+    background-image: url('../../../images/extjs/icons/subscriptions.png');
+}
+.x-icon-users {
+    background-image: url('../../../images/extjs/icons/group.png');
+}
+.x-icon-templates {
+    background-image: url('../../../images/extjs/icons/templates.png');
+}
+.upload-icon {
+    background-image: url('../../../images/extjs/icons/image_add.png');
+}

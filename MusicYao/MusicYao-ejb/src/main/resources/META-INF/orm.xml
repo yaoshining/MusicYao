@@ -3,6 +3,6 @@
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
                version="2.0">
-    <entity class="com.yao.music.po.Music">
-    </entity>
+    <entity class="com.yao.music.po.Music" />
+    <entity class="com.yao.music.po.Language" />
 </entity-mappings>

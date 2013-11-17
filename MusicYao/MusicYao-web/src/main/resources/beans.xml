@@ -11,9 +11,6 @@
           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
     <context:annotation-config />
-    <context:component-scan base-package="com.yao.music">
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
-    </context:component-scan>
     <bean id="jpa-jtaDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
         <property name="jndiName">
             <value>music-datasource</value>
@@ -46,10 +43,15 @@
     <util:properties id="jpaProperties">
         <prop key="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</prop>
         <prop key="hibernate.hbm2ddl.auto">update</prop>
+        <prop key="hibernate.transaction.jta.platform">org.hibernate.service.jta.platform.internal.WeblogicJtaPlatform</prop>
+        <prop key="hibernate.dialect">org.hibernate.dialect.DerbyTenSevenDialect</prop>
     </util:properties>
     <util:list id="packageToScan">
         <value>com.yao.music.po</value>
     </util:list>
-    <tx:annotation-driven />
     <tx:jta-transaction-manager />
+    <tx:annotation-driven />
+    <context:component-scan base-package="com.yao.music">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>
 </beans>

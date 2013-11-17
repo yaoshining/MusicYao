@@ -38,6 +38,11 @@
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
+            <artifactId>spring-oxm</artifactId>
+            <version>3.2.4.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
             <version>3.2.4.RELEASE</version>
         </dependency>
@@ -81,6 +86,22 @@
             <groupId>commons-pool</groupId>
             <artifactId>commons-pool</artifactId>
             <version>20030825.183949</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.3.0-rc1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-joda</artifactId>
+            <version>2.3.0-rc1</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.json-lib</groupId>
+            <artifactId>json-lib</artifactId>
+            <version>2.3</version>
+            <classifier>jdk15</classifier>
         </dependency>
         <dependency>
             <groupId>commons-collections</groupId>
