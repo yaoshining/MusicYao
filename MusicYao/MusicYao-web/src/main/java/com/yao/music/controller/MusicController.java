@@ -11,6 +11,9 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import org.aspectj.util.FileUtil;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,12 +33,15 @@ public class MusicController {
     @Resource
     private LanguageService languageService;
     
-    @RequestMapping(value="/{id}.mp3",method = RequestMethod.GET,headers = {"Content-Diposition=inline;filename=123.mp3"})
+    @RequestMapping(value="/{id}.mp3",method = RequestMethod.GET)
     @ResponseBody
-    public byte[] download(@PathVariable int id) throws IOException {
+    public ResponseEntity<byte[]> download(@PathVariable int id) throws IOException {
         Music music = musicService.find(Music.class, id);
         File musicFile = new File(music.getFilePath());
-        return FileUtil.readAsByteArray(musicFile);
+        HttpHeaders responHeaders = new HttpHeaders();
+        responHeaders.add("Content-Diposition", "inline;filename=\"123.mp3\"");
+        ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(FileUtil.readAsByteArray(musicFile), responHeaders, HttpStatus.OK);
+        return responseEntity;
     }
     
     @RequestMapping(value="/language/{id}",method = RequestMethod.GET)
