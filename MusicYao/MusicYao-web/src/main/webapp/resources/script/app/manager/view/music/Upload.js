@@ -8,7 +8,7 @@ Ext.define('BM.view.music.Upload',{
     labelPad: 20,
     border: false,
     
-    url: 'manager/music/upload',
+    url: 'manager/musics/upload',
     defaultType: 'textfield',
     defaults: {
         width: 330,

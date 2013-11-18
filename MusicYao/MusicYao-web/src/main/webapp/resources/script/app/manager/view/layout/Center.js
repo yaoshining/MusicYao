@@ -27,6 +27,12 @@ Ext.define('BM.view.layout.Center',{
             items: [{
                 xtype: 'uploadform'
             }]
+        },{
+            title: '属性维护',
+            xtype: 'musicgrid',
+            style: 'padding: 10px;',
+            border: false,
+            iconCls: 'x-icon-templates'
         }]
     }]
 });

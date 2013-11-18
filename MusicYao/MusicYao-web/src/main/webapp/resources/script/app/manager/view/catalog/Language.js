@@ -32,27 +32,27 @@ Ext.define('BM.view.catalog.Language',{
 //    }],
     initComponent: function() {
         this.editing = Ext.create('Ext.grid.plugin.CellEditing',{
-            clicksToEdit: 1
+//            clicksToEdit: 1
         });
-        Ext.override(Ext.grid.column.RowNumberer, {
-
-            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-                var rowspan = this.rowspan;
-                if (rowspan){
-                    metaData.tdAttr = 'rowspan="' + rowspan + '"';
-                }
-
-                metaData.tdCls = Ext.baseCSSPrefix + 'grid-cell-special';
-
-                console.log(store.indexOfTotal(record));
-                console.log(store.getTotalCount());
-                console.log(store.data.items.length);
-                console.log(record);
-                console.log('**');
-
-                return store.indexOfTotal(record) + 1;
-            }
-        });
+//        Ext.override(Ext.grid.column.RowNumberer, {
+//
+//            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+//                var rowspan = this.rowspan;
+//                if (rowspan){
+//                    metaData.tdAttr = 'rowspan="' + rowspan + '"';
+//                }
+//
+//                metaData.tdCls = Ext.baseCSSPrefix + 'grid-cell-special';
+//
+//                console.log(store.indexOfTotal(record));
+//                console.log(store.getTotalCount());
+//                console.log(store.data.items.length);
+//                console.log(record);
+//                console.log('**');
+//
+//                return store.indexOfTotal(record) + 1;
+//            }
+//        });
         Ext.apply(this,{
             iconCls: 'icon-grid',
             frame: true,

@@ -10,13 +10,17 @@ import com.yao.music.po.Language;
 import com.yao.music.po.Music;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 import javax.annotation.Resource;
+import net.sf.json.JSONObject;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.mp3.MP3AudioHeader;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,7 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @author 世宁
  */
 @Controller
-@RequestMapping("/manager/music")
+@RequestMapping("/manager/musics")
 public class MusicManagerController {
     
     @Resource
@@ -62,4 +66,20 @@ public class MusicManagerController {
         return "ok";
     }
     
+    @RequestMapping(method = RequestMethod.GET)
+    @ResponseBody
+    public List<Music> fetchAll(@RequestParam int page,@RequestParam int start,@RequestParam int limit) {    
+        List<Music> musicList = musicService.findAll(Music.class);
+        return musicList;
+    }
+    
+    @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
+    @ResponseBody
+    public JSONObject fetchAll(@RequestBody List<Music> data) {  
+        musicService.saveOrUpdateEntities(data);
+        JSONObject result = new JSONObject();
+        result.put("success", true);
+        result.put("message", "修改成功");
+        return result;
+    }
 }
