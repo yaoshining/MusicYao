@@ -9,7 +9,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import org.aspectj.util.FileUtil;
+import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,4 +44,16 @@ public class MusicController {
         Language language = languageService.find(Language.class, id);
         return new ArrayList<>(language.getMusics());
     }
+    
+    @RequestMapping(value="/poster/{id}.jpg",method = RequestMethod.GET)
+    @ResponseBody
+    public byte[] getPosterOfMusic(@PathVariable int id, HttpServletRequest request) throws IOException {
+        Music music = musicService.find(Music.class, id);
+        if(music.getPoster()==null) {
+            String defaultPosterPath = request.getServletContext().getRealPath("/resources/images/music/poster.jpg");
+            music.setPoster(FileUtil.readAsByteArray(new File(defaultPosterPath)));
+        }
+        return music.getPoster();
+    }
+    
 }

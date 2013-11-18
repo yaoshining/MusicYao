@@ -1,12 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.yao.music.po;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -14,8 +7,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -29,6 +23,9 @@ public class Music implements Serializable{
     private String title;
     private String filePath;
     private String trackLengthAsString;
+    @Lob
+    @JsonIgnore
+    private byte[] poster;
     @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.EAGER,optional = true)
     @JoinColumn(name = "languageId")
     private Language language;
@@ -71,6 +68,14 @@ public class Music implements Serializable{
 
     public void setTrackLengthAsString(String trackLengthAsString) {
         this.trackLengthAsString = trackLengthAsString;
+    }
+
+    public byte[] getPoster() {
+        return poster;
+    }
+
+    public void setPoster(byte[] poster) {
+        this.poster = poster;
     }
     
 }

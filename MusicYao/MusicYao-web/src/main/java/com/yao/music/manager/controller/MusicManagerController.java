@@ -43,6 +43,7 @@ public class MusicManagerController {
     @RequestMapping("/upload")
     @ResponseBody
     public String upload(@RequestParam(value = "musicfile",required = false) MultipartFile musicfile,
+                    @RequestParam(value = "posterfile",required = false) MultipartFile posterfile,
                     @RequestParam(required = true) int languageId,@RequestParam(required = true) String title) throws Exception {    
         try {
             String musicRootDirectory = (String) siteProperties.get("musicRootDirectory");    
@@ -60,6 +61,7 @@ public class MusicManagerController {
             music.setLanguage(language);        
             music.setFilePath(filePath);
             music.setTrackLengthAsString(trackLengthAsString);
+            music.setPoster(posterfile.getBytes());
             musicService.saveOrUpdate(music);
         } catch (IOException ex) {
         }

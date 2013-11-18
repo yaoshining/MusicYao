@@ -26,7 +26,7 @@
                 <div>{{language.name}}</div>
                 {{#each musics}}
                 <div class="ui360 ui360-vis">
-                    <a href="music/{{this.id}}.mp3">{{this.title}}</a>
+                    <a href="music/{{this.id}}.mp3" style="background-image: url(music/poster/{{this.id}}.jpg);background-size: cover;">{{this.title}}</a>
                     <div class="metadata">
                      <div class="duration">{{this.trackLengthAsString}}</div>
                      <ul>

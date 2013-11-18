@@ -108,6 +108,12 @@
             <artifactId>commons-collections</artifactId>
             <version>20040616</version>
         </dependency>
+         <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>6.0</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org</groupId>
             <artifactId>jaudiotagger</artifactId>

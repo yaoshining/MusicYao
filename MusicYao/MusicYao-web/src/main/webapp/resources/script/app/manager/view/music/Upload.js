@@ -34,7 +34,31 @@ Ext.define('BM.view.music.Upload',{
         name: 'musicfile',
         allowBlank: false,
         emptyText: '请选择要上传的文件',
+        listeners:{
+            afterrender:function(cmp){
+              cmp.fileInputEl.set({
+                accept:'audio/*'
+              });
+            }
+        },
         buttonText: '',
+        buttonConfig: {
+            iconCls: 'upload-icon'
+        }
+    },{
+        xtype: 'filefield',
+        fieldLabel: '专辑图片',
+        name: 'posterfile',
+        allowBlank: false,
+        emptyText: '请选择要上传的图片',
+        buttonText: '',
+        listeners:{
+            afterrender:function(cmp){
+              cmp.fileInputEl.set({
+                accept:'image/*'
+              });
+            }
+        },
         buttonConfig: {
             iconCls: 'upload-icon'
         }
@@ -56,6 +80,7 @@ Ext.define('BM.view.music.Upload',{
                             icon: Ext.Msg.INFO,
                             buttons: Ext.Msg.OK
                         });
+                        form.reset();
                     }
                 });
             }
