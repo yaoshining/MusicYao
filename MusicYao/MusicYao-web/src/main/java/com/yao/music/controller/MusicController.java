@@ -30,7 +30,7 @@ public class MusicController {
     @Resource
     private LanguageService languageService;
     
-    @RequestMapping(value="/{id}.mp3",method = RequestMethod.GET,headers = {"Content-Diposition=inlint;filename=123.mp3"})
+    @RequestMapping(value="/{id}.mp3",method = RequestMethod.GET,headers = {"Content-Diposition=inline;filename=123.mp3"})
     @ResponseBody
     public byte[] download(@PathVariable int id) throws IOException {
         Music music = musicService.find(Music.class, id);
