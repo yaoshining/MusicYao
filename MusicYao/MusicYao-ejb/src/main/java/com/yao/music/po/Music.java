@@ -25,6 +25,7 @@ public class Music implements Serializable{
     private int id;
     private String title;
     private String filePath;
+    private String trackLengthAsString;
     @JsonIgnore
     @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.EAGER,optional = true)
     @JoinColumn(name = "languageId")
@@ -60,6 +61,14 @@ public class Music implements Serializable{
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
+    }
+
+    public String getTrackLengthAsString() {
+        return trackLengthAsString;
+    }
+
+    public void setTrackLengthAsString(String trackLengthAsString) {
+        this.trackLengthAsString = trackLengthAsString;
     }
     
 }

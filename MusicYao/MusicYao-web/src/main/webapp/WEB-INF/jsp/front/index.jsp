@@ -28,7 +28,7 @@
                 <div class="ui360 ui360-vis">
                     <a href="music/{{this.id}}.mp3">{{this.title}}</a>
                     <div class="metadata">
-                     <div class="duration">0:47</div>
+                     <div class="duration">{{this.trackLengthAsString}}</div>
                      <ul>
                       <li><p>First attempt</p><span>0:00</span></li>
                       <li><p>Fire!</p><span>0:02</span></li>
