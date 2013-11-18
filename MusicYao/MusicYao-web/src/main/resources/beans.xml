@@ -11,6 +11,7 @@
           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
     <context:annotation-config />
+    <util:properties id="siteProperties" location="classpath:site.properties" />
     <bean id="jpa-jtaDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
         <property name="jndiName">
             <value>music-datasource</value>

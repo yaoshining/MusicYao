@@ -9,8 +9,9 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
     <http pattern="/manager/login.html" security="none" />
     <http pattern="/resources/**" security="none" />
     <http use-expressions="true" auto-config="true">
-        <intercept-url pattern="/**" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/manager/**" access="hasRole('ROLE_ADMIN')" />
         <form-login login-page="/manager/login.html" username-parameter="userId" password-parameter="password" default-target-url="/" />
+        <logout logout-url="/manager/logout" />
     </http>
     <authentication-manager>
         <authentication-provider>

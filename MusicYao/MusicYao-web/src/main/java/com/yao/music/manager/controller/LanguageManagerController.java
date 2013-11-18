@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("/manager/languages")
-public class LanguageController {
+public class LanguageManagerController {
     @Resource
     private LanguageService languageService;
     @Resource

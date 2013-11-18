@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE cross-domain-policy 
+  SYSTEM "http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd">
+<cross-domain-policy>
+
+ <!-- be nice and let SM2 demos get access to wave/eq/ID3 data from any site -->
+ <allow-access-from domain="*" />
+
+ <!-- previous (more restrictive) rules, SM2 home only -->
+ <!--
+ <allow-access-from domain="*.schillmania.com" />
+ <allow-access-from domain="schillmania.com" />
+ -->
+
+</cross-domain-policy>

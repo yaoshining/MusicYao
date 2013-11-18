@@ -10,6 +10,7 @@ import com.yao.music.po.Language;
 import com.yao.music.po.Music;
 import java.io.File;
 import java.io.IOException;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
@@ -26,26 +27,33 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Controller
 @RequestMapping("/manager/music")
-public class MusicController {
+public class MusicManagerController {
     
     @Resource
     private LanguageService languageService;
     @Resource
     private MusicService musicService;
+    @Resource
+    private Properties siteProperties;
     
     @RequestMapping("/upload")
     @ResponseBody
     public String upload(@RequestParam(value = "musicfile",required = false) MultipartFile musicfile,
                     @RequestParam(required = true) int languageId,@RequestParam(required = true) String title) {    
         try {
+            String musicRootDirectory = (String) siteProperties.get("musicRootDirectory");    
             Language language = languageService.find(Language.class, languageId);
+            String musicDirectory = musicRootDirectory+"/"+language.getName()+"/";
+            File directory = new File(musicDirectory);
+            if(!directory.exists()) directory.mkdirs();
+            String filePath = musicDirectory+title+musicfile.getOriginalFilename().substring(musicfile.getOriginalFilename().lastIndexOf("."), musicfile.getOriginalFilename().length());
+            File file = new File(filePath);
+            FileCopyUtils.copy(musicfile.getBytes(), file);
             Music music = new Music();
             music.setTitle(title);
-            music.setLanguage(language);
-            File file = new File("E:/"+musicfile.getOriginalFilename());
-            music.setFilePath("E:/"+musicfile.getOriginalFilename());
+            music.setLanguage(language);        
+            music.setFilePath(filePath);
             musicService.saveOrUpdate(music);
-            FileCopyUtils.copy(musicfile.getBytes(), file);
         } catch (IOException ex) {
         }
         return "ok";

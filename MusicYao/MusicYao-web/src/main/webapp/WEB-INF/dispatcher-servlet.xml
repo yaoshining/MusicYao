@@ -37,6 +37,7 @@
                 <entry key="json" value="application/json" />
                 <entry key="xml" value="text/xml" />
                 <entry key="htm" value="text/html" />
+                <entry key="mp3" value="audio/mpeg3" />
             </map>
         </property>
         <property name="defaultContentType" value="text/html" />
@@ -68,7 +69,7 @@
     -->
     <bean name="indexController"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          p:viewName="index" />
+          p:viewName="front/index" />
     <mvc:resources mapping="/resources/**" location="/resources/" />
     <context:component-scan base-package="com.yao.**.controller"></context:component-scan>
     <mvc:annotation-driven>
