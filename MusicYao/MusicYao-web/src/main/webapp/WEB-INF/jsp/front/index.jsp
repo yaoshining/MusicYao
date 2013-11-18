@@ -26,7 +26,7 @@
                 <div>{{language.name}}</div>
                 {{#each musics}}
                 <div class="ui360 ui360-vis">
-                    <a href="http://localhost:7001/MusicYao/music/{{this.id}}.mp3">{{this.title}}</a>
+                    <a href="music/{{this.id}}.mp3">{{this.title}}</a>
                     <div class="metadata">
                      <div class="duration">0:47</div>
                      <ul>
