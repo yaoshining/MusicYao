@@ -14,7 +14,6 @@ import org.aspectj.util.FileUtil;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,8 +39,7 @@ public class MusicController {
         File musicFile = new File(music.getFilePath());
         HttpHeaders responHeaders = new HttpHeaders();
         responHeaders.add("Content-Diposition", "inline;filename=\"123.mp3\"");
-        ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(FileUtil.readAsByteArray(musicFile), responHeaders, HttpStatus.OK);
-        return responseEntity;
+        return new ResponseEntity<>(FileUtil.readAsByteArray(musicFile), responHeaders, HttpStatus.OK);
     }
     
     @RequestMapping(value="/language/{id}",method = RequestMethod.GET)
@@ -56,7 +54,7 @@ public class MusicController {
     public byte[] getPosterOfMusic(@PathVariable int id, HttpServletRequest request) throws IOException {
         Music music = musicService.find(Music.class, id);
         if(music.getPoster()==null) {
-            String defaultPosterPath = request.getServletContext().getRealPath("/resources/images/music/poster.jpg");
+            String defaultPosterPath =  request.getServletContext().getRealPath("/");
             music.setPoster(FileUtil.readAsByteArray(new File(defaultPosterPath)));
         }
         return music.getPoster();

@@ -45,6 +45,7 @@ Ext.define('BM.view.music.MusicGrid',{
         sortable: false
     }],
     initComponent: function(){
+        alert("asad");
         this.editing = Ext.create('Ext.grid.plugin.CellEditing');
         Ext.apply(this,{
             plugins: [this.editing]
