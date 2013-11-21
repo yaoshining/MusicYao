@@ -22,7 +22,14 @@ Ext.define('BM.view.music.MusicGrid',{
         }]
     }],
     columns: [{
-        tdCls: 'x-grid-cell-topic',
+        text: "专辑图片",
+        tdCls: 'tdValign',
+        align: "center",
+        xtype: 'templatecolumn',
+        tpl: '<img src="music/poster/{id}.jpg" width="100" />',
+        width: 200
+    },{
+        tdCls: 'x-grid-cell-topic tdValign',
         header: "标题",
         dataIndex: 'title',
         flex: 1,
@@ -33,19 +40,20 @@ Ext.define('BM.view.music.MusicGrid',{
         sortable: true
     },{
         text: "文件路径",
+        tdCls: 'tdValign',
         dataIndex: 'filePath',
         align: 'center',
         width: 500,
         sortable: false
     },{
         text: "时长",
+        tdCls: 'tdValign',
         dataIndex: 'trackLengthAsString',
         align: 'center',
         width: 230,
         sortable: false
     }],
     initComponent: function(){
-        alert("asad");
         this.editing = Ext.create('Ext.grid.plugin.CellEditing');
         Ext.apply(this,{
             plugins: [this.editing]

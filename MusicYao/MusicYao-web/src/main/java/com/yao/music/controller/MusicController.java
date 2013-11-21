@@ -54,7 +54,7 @@ public class MusicController {
     public byte[] getPosterOfMusic(@PathVariable int id, HttpServletRequest request) throws IOException {
         Music music = musicService.find(Music.class, id);
         if(music.getPoster()==null) {
-            String defaultPosterPath =  request.getServletContext().getRealPath("/");
+            String defaultPosterPath =  request.getServletContext().getRealPath("/resources/images/music/poster.jpg");
             music.setPoster(FileUtil.readAsByteArray(new File(defaultPosterPath)));
         }
         return music.getPoster();

@@ -17,7 +17,7 @@
 </script>
 <![endif]-->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Music Yao后台管理系统</title>
+<title>MusicYao后台管理系统</title>
 <link rel="stylesheet" href="resources/css/extjs/ext-all-neptune.css" media="screen" />
 <base href="<%=request.getContextPath()+"/"%>" />
 <link rel="stylesheet" type="text/css" href="resources/css/extjs/ux/GroupTabPanel.css" media="screen" />

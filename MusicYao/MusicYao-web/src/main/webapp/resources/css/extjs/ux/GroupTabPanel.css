@@ -192,3 +192,6 @@
 .upload-icon {
     background-image: url('../../../images/extjs/icons/image_add.png');
 }
+.tdValign {
+    vertical-align: middle;
+}

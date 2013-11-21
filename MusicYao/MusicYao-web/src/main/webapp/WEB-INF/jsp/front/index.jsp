@@ -10,7 +10,7 @@
     <head>
         <base href="<%=request.getContextPath()+"/" %>" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>MusicYao音乐网</title>
         <link rel="stylesheet" type="text/css" href="resources/css/soundmanager/360player.css" />
         <link rel="stylesheet" type="text/css" href="resources/css/soundmanager/360player-visualization.css" />
         <!-- special IE-only canvas fix -->
