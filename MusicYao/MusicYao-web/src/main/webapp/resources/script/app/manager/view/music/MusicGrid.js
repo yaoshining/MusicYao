@@ -2,6 +2,7 @@ Ext.define('BM.view.music.MusicGrid',{
     extend: 'Ext.grid.Panel',
     header: false,
     alias: 'widget.musicgrid',
+    id: "musicGrid",
     iconCls: 'icon-grid',
     store: 'music.Musics',
     dockedItems: [{
@@ -55,8 +56,87 @@ Ext.define('BM.view.music.MusicGrid',{
     }],
     initComponent: function(){
         this.editing = Ext.create('Ext.grid.plugin.CellEditing');
+        var contextMenu = Ext.create("Ext.menu.Menu",{
+            items: [{
+                id: 'updatePosterWindow',
+                text: '更新专辑图片'
+            }],
+            listeners: {
+                click: function(menu,item) {
+                    var gridSelected = Ext.getCmp("musicGrid").getSelectionModel().getSelection()[0];
+                    switch(item.id){
+                        case "updatePosterWindow":
+                            Ext.create('Ext.window.Window', {
+                                title: '更新专辑图片',
+                                height: 440,
+                                layout:"fit",
+                                width: 410,
+                                modal: true,
+                                items: [{
+                                    xtype: 'form',
+                                    url: 'manager/musics/poster/'+gridSelected.get("id"),
+                                    border: false,
+                                    items: [{
+                                        xtype: 'filefield',
+                                        buttonOnly: true,
+                                        name: 'posterFile',
+                                        buttonText: '',
+                                        border: false,
+                                        buttonConfig: {
+                                            id: 'submitButton',
+                                            style: {
+                                                width: "400px",
+                                                height: "400px",
+                                                display: "block",
+                                                background: Ext.String.format("url(music/poster/{0}.jpg)",gridSelected.get("id")),
+                                                backgroundSize: "cover"
+                                            }
+                                        },
+                                        listeners: {
+                                            afterrender:function(cmp){
+                                                cmp.fileInputEl.set({
+                                                    accept:'image/*'
+                                                });
+                                            },
+                                            change: function(cmp,value,eOpts) {
+                                                if(value && value!="") {
+                                                    var form = cmp.up('form').getForm();
+                                                    form.submit({
+                                                        waitMsg: '正在上传专辑图片...',
+                                                        success: function(fp, o) {
+                                                            Ext.Msg.show({
+                                                                title: '上传成功',
+                                                                msg: o.result,
+                                                                minWidth: 200,
+                                                                modal: true,
+                                                                icon: Ext.Msg.INFO,
+                                                                buttons: Ext.Msg.OK
+                                                            });
+                                                            form.reset();
+                                                            Ext.getCmp("submitButton").show();
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                        }
+                                    }]
+                                }]
+                            }).show();
+                            break;
+                    }
+                }
+            }
+        });
         Ext.apply(this,{
-            plugins: [this.editing]
+            plugins: [this.editing],
+            viewConfig: {
+                listeners: {
+                    itemcontextmenu: function(cmp,record,item,index,e,eOpts){
+                        e.stopEvent();
+                        contextMenu.showAt(e.xy);
+                    }
+                }
+            }
         });
         this.callParent();
         this.getSelectionModel().on('selectionchange', this.onSelectChange, this);

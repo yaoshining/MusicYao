@@ -18,11 +18,7 @@ import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.mp3.MP3AudioHeader;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -77,8 +73,20 @@ public class MusicManagerController {
     
     @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
     @ResponseBody
-    public JSONObject fetchAll(@RequestBody List<Music> data) {  
+    public JSONObject update(@RequestBody List<Music> data) {
         musicService.saveOrUpdateEntities(data);
+        JSONObject result = new JSONObject();
+        result.put("success", true);
+        result.put("message", "修改成功");
+        return result;
+    }
+
+    @RequestMapping(value = "/poster/{id}",method = RequestMethod.POST)
+    @ResponseBody
+    public JSONObject updatePoster(@PathVariable int id,@RequestParam MultipartFile posterFile) throws IOException {
+        Music music = musicService.find(Music.class,id);
+        music.setPoster(posterFile.getBytes());
+        musicService.saveOrUpdate(music);
         JSONObject result = new JSONObject();
         result.put("success", true);
         result.put("message", "修改成功");
