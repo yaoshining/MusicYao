@@ -17,7 +17,7 @@
     </context:component-scan>
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" 
             p:driverClassName="org.apache.derby.jdbc.ClientDriver"
-            p:url="jdbc:derby://192.168.1.109:1527/musicyao;create=true"
+            p:url="jdbc:derby://localhost:1527/musicyao;create=true"
             p:username="yao" 
             p:password="ys198756" 
             p:maxActive="100" 
