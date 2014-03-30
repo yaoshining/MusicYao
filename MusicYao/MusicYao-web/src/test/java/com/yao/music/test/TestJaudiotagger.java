@@ -46,13 +46,13 @@ public class TestJaudiotagger {
 
      @Test
      public void test() throws CannotReadException, IOException, TagException, ReadOnlyFileException, InvalidAudioFrameException {
-         File file = new File("E:\\musicyao\\英语\\Hotel California.mp3");
-         AudioFile audioFile = AudioFileIO.read(file);
-         Tag tag = audioFile.getTag();
-         AudioHeader header = audioFile.getAudioHeader();
-         System.out.println((double)header.getTrackLength()/60);
-         MP3AudioHeader mp3Header = (MP3AudioHeader)header;
-         System.out.println(mp3Header.getTrackLengthAsString());
+//         File file = new File("E:\\musicyao\\英语\\Hotel California.mp3");
+//         AudioFile audioFile = AudioFileIO.read(file);
+//         Tag tag = audioFile.getTag();
+//         AudioHeader header = audioFile.getAudioHeader();
+//         System.out.println((double)header.getTrackLength()/60);
+//         MP3AudioHeader mp3Header = (MP3AudioHeader)header;
+//         System.out.println(mp3Header.getTrackLengthAsString());
      }
 
 }
