@@ -46,6 +46,8 @@ public class MusicController {
     @ResponseBody
     public List<Music> getMusicsByLanguage(@PathVariable int id) throws IOException {
         Language language = languageService.find(Language.class, id);
+        HttpHeaders responHeaders = new HttpHeaders();
+        responHeaders.add("Access-Control-Allow-Origin", "*");
         return new ArrayList<>(language.getMusics());
     }
     
