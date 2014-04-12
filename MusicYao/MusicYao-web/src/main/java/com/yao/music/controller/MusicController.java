@@ -50,7 +50,14 @@ public class MusicController {
         responHeaders.add("Access-Control-Allow-Origin", "*");
         return new ArrayList<>(language.getMusics());
     }
-    
+
+    @RequestMapping(value="/random/{count}",method = RequestMethod.GET)
+    @ResponseBody
+    public List<Music> random(@PathVariable int count) throws IOException {
+        List<Music> musicList = musicService.findAll(Music.class);
+        return musicList;
+    }
+
     @RequestMapping(value="/poster/{id}.jpg",method = RequestMethod.GET)
     @ResponseBody
     public byte[] getPosterOfMusic(@PathVariable int id, HttpServletRequest request) throws IOException {
