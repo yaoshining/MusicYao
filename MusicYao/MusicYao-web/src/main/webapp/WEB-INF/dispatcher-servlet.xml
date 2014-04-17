@@ -65,7 +65,7 @@
           p:prefix="/WEB-INF/jsp/"
           p:suffix=".jsp"
           p:viewClass="org.springframework.web.servlet.view.JstlView" />
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" p:maxUploadSize="102400000" />
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" p:maxUploadSize="102400000" p:defaultEncoding="UTF-8" />
     <!--
     The index controller.
     -->
